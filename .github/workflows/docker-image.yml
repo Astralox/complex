@@ -8,11 +8,39 @@ on:
 
 jobs:
 
-  build:
-
+  job1: 
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Build React-tests image
+      run: docker build -t astralox/react-tests -f ./client/Dockerfile.dev ./client
+    - name: Run React-tests
+      run: docker run -e CI=true astralox/react-tests npm test
+    
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build production client image
+      run: docker build -t astralox/multi-client ./client
+
+  job3:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build production nginx image
+      run: docker build -t astralox/multi-nginx ./nginx
+
+  job4:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build production server image
+      run: docker build -t atralox/multi-server ./server
+
+  job5:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build production worker image
+      run: docker build -t astralox/multi-worker ./worker
