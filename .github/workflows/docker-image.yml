@@ -21,6 +21,7 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
     - name: Build production client image
       run: docker build -t astralox/multi-client ./client
 
@@ -28,6 +29,7 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
     - name: Build production nginx image
       run: docker build -t astralox/multi-nginx ./nginx
 
@@ -35,6 +37,7 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
     - name: Build production server image
       run: docker build -t atralox/multi-server ./server
 
@@ -42,5 +45,6 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
     - name: Build production worker image
       run: docker build -t astralox/multi-worker ./worker
