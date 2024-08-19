@@ -51,7 +51,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build production server image
-      run: docker build -t atralox/multi-server ./server
+      run: docker build -t astralox/multi-server ./server
     - name: Login to docker hub
       run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_ID }} --password-stdin
     - name: Push multi-server to hub.docker.com
